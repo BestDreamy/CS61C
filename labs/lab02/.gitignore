@@ -15,3 +15,4 @@
 !pwd_checker.c
 !pwd_checker.h
 !test_pwd_checker.c
+!Makefile
