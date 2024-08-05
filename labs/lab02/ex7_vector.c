@@ -106,6 +106,7 @@ void vector_set(vector_t *v, size_t loc, int value) {
         *(v->data + loc) = value;
     } else {
         int *data = v->data;
+        // realloc()
         v->data = (int*)malloc(sizeof(int) * (loc + 1));
         for (int *p = data, i = 0; i <= loc; i ++) {
             if (v->size > i) {

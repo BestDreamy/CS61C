@@ -13,6 +13,10 @@ ex7:
 	@gcc -g -o build/ex7_vector ex7_vector.c ex7_test_vector.c
 	@gdb build/ex7_vector
 
+ex8:
+	@gcc -g -o build/ex8_double_pointers ex8_double_pointers.c
+	@gdb build/ex8_double_pointers
+
 git:
 	git add .
 	git commit -m "Finish lab02 aparting from something about valgrind"
