@@ -51,6 +51,9 @@ pow:
     # BEGIN PROLOGUE
     # FIXME: Need to save the callee saved register(s)
     # END PROLOGUE
+    addi sp, sp, -4
+    sw s0, 0(sp)
+
     li s0, 1
 pow_loop:
     beq a1, zero, pow_end
@@ -59,6 +62,9 @@ pow_loop:
     j pow_loop
 pow_end:
     mv a0, s0
+
+    lw s0, 0(sp)
+    addi sp, sp, 4
     # BEGIN EPILOGUE
     # FIXME: Need to restore the callee saved register(s)
     # END EPILOGUE
@@ -76,6 +82,11 @@ inc_arr:
     addi sp, sp, -4
     sw ra, 0(sp)
     # END PROLOGUE
+
+    addi sp, sp, -8
+    sw s0, 0(sp)
+    sw s1, 4(sp)
+
     mv s0, a0 # Copy start of array to saved register
     mv s1, a1 # Copy length of array to saved register
     li t0, 0 # Initialize counter to 0
@@ -94,6 +105,10 @@ inc_arr_loop:
     addi t0, t0, 1 # Increment counter
     j inc_arr_loop
 inc_arr_end:
+    lw s0, 0(sp)
+    lw s1, 4(sp)
+    addi sp, sp, 8
+    
     # BEGIN EPILOGUE
     # FIXME: What other registers need to be restored?
     lw ra, 0(sp)
