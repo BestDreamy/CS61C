@@ -1,4 +1,4 @@
-.globl pow inc_arr
+.globl pow inc_arr helper_fn
 
 .data
 fail_message: .asciiz "%s test failed\n"
@@ -48,9 +48,6 @@ next_test:
 # }
 #
 pow:
-    # BEGIN PROLOGUE
-    # FIXME: Need to save the callee saved register(s)
-    # END PROLOGUE
     addi sp, sp, -4
     sw s0, 0(sp)
 
@@ -65,9 +62,6 @@ pow_end:
 
     lw s0, 0(sp)
     addi sp, sp, 4
-    # BEGIN EPILOGUE
-    # FIXME: Need to restore the callee saved register(s)
-    # END EPILOGUE
     jr ra
 
 # Increments the elements of an array in-place.
@@ -77,11 +71,8 @@ pow_end:
 # This function calls the "helper_fn" function, which takes in an
 # address as argument and increments the 32-bit value stored there.
 inc_arr:
-    # BEGIN PROLOGUE
-    # FIXME: What other registers need to be saved?
     addi sp, sp, -4
     sw ra, 0(sp)
-    # END PROLOGUE
 
     addi sp, sp, -8
     sw s0, 0(sp)
@@ -96,11 +87,13 @@ inc_arr_loop:
     add a0, s0, t1 # Add offset to start of array
     # Prepare to call helper_fn
     #
-    # FIXME: Add code to preserve the value in t0 before we call helper_fn
+    addi sp, sp, -4
+    sw t0, 0(sp)
     # Also ask yourself this: why don't we need to preserve t1?
     #
     jal ra helper_fn
-    # FIXME: Restore t0
+    lw t0, 0(sp)
+    addi sp, sp, 4
     # Finished call for helper_fn
     addi t0, t0, 1 # Increment counter
     j inc_arr_loop
@@ -109,11 +102,8 @@ inc_arr_end:
     lw s1, 4(sp)
     addi sp, sp, 8
     
-    # BEGIN EPILOGUE
-    # FIXME: What other registers need to be restored?
     lw ra, 0(sp)
     addi sp, sp, 4
-    # END EPILOGUE
     jr ra
 
 # This helper function adds 1 to the value at the memory address in a0.
@@ -125,15 +115,15 @@ inc_arr_end:
 # You should fix the bug anyway by filling in the prologue and epilogue
 # as appropriate.
 helper_fn:
-    # BEGIN PROLOGUE
-    # FIXME: YOUR CODE HERE
-    # END PROLOGUE
+    addi sp, sp, -4
+    sw s0, 0(sp)
+
     lw t1, 0(a0)
     addi s0, t1, 1
     sw s0, 0(a0)
-    # BEGIN EPILOGUE
-    # FIXME: YOUR CODE HERE
-    # END EPILOGUE
+
+    lw, s0, 0(sp)
+    addi sp, sp, 4
     jr ra
 
 # YOU CAN IGNORE EVERYTHING BELOW THIS COMMENT
