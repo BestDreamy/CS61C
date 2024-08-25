@@ -27,5 +27,5 @@ ex2.o: ex2.c ex2.h
 	$(CC) $(CFLAGS_OMP) $< -o $@
 
 clean:
-	rm -f ex2
+	rm -f ex2 ex1 openmp_example
 	rm -f *.o
