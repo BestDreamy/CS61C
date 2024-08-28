@@ -17,6 +17,11 @@ ifeq (,${NO_COLOR})
 	endif
 endif
 
+git:
+	git add .
+	git commit -m "Finish proj1"
+	git push
+
 help:
 	@echo Usage:
 	@echo make unit-tests: Compiles the unit tests.
