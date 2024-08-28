@@ -20,7 +20,7 @@ endif
 git:
 	git add .
 	git commit -m "Finish proj1"
-	git push
+	git push origin main
 
 help:
 	@echo Usage:
