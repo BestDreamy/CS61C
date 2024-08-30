@@ -310,7 +310,9 @@ game_state_t *load_board(FILE *fp) {
   while (fgets(buffer, LINE_SIZE, fp) != NULL) {
     long unsigned int col = strlen(buffer);
     game_state->board[row] = (char*)malloc(sizeof(char) * (col));
-    strcpy(game_state->board[row], buffer);
+    // strcpy(game_state->board[row], buffer);
+    for (int i = 0; i < col; i ++) 
+      game_state->board[row][i] = buffer[i];
     if (col - 1 >= 0) 
       game_state->board[row][col - 1] = '\0';
     row ++;
