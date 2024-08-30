@@ -263,25 +263,29 @@ static void update_tail(game_state_t *state, unsigned int snum) {
 /* Task 4.5 */
 void update_state(game_state_t *state, int (*add_food)(game_state_t *state))
 {
-  int num = state->num_snakes;
-  for (int i = 0; i < num; i++) {
+  unsigned int snum = state->num_snakes;
+  for (unsigned int i = 0; i < snum; i++) {
+    snake_t *snake = state->snakes + i;
+    unsigned int head_row = snake->head_row;
+    unsigned int head_col = snake->head_col;
     char next_step = next_square(state, i);
     if (is_snake(next_step)) {
-      state->board[state->snakes[i].head_y][state->snakes[i].head_x] = 'x';
-      state->snakes[i].live = false;
+      set_board_at(state, head_row, head_col, 'x');
+      snake->live = false;
     }
+
     switch (next_step) {
       case ' ' : 
         update_head(state, i);
         update_tail(state, i);
         break;
       case '#' :
-        state->board[state->snakes[i].head_y][state->snakes[i].head_x] = 'x';
-        state->snakes[i].live = false;
+        set_board_at(state, head_row, head_col, 'x');
+        snake->live = false;
         break;
       case '*' :
         update_head(state, i);
-        add_food(state);
+        add_food(state); // add a new food in the board
         break;
     }
   }
