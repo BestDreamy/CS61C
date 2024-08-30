@@ -165,6 +165,8 @@ bool assert_state_equals(game_state_t *expected, game_state_t *actual) {
   }
   if (!assert_equals_unsigned_int("board width", (unsigned int)strlen(expected->board[0]),
                                   (unsigned int)strlen(actual->board[0]))) {
+    // printf("%s", expected->board[2]);
+    // printf("%s", actual->board[2]);
     return false;
   }
 

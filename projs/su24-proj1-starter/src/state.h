@@ -15,7 +15,7 @@ typedef struct snake_t {
 
 typedef struct game_state_t {
   unsigned int num_rows;
-  unsigned int num_cols;
+  // unsigned int num_cols;
   char **board;
 
   unsigned int num_snakes;
