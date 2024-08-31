@@ -1330,6 +1330,7 @@ bool test_load_board() {
     printf("%s\n", "test_load_board_2 failed. Check tests/06-small-in.snk for a diagram of the board.");
     return false;
   }
+
   if (!test_load_board_3()) {
     printf("%s\n", "test_load_board_3 failed. Check tests/13-sus-in.snk for a diagram of the board.");
     return false;

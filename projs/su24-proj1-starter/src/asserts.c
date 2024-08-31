@@ -117,7 +117,6 @@ bool assert_load_equals(FILE *fp, char *expected) {
   }
 
   save_board(state, "unit-test-out.snk");
-  printf("test1\n");
 
   FILE *f = fopen("unit-test-out.snk", "r");
   fseek(f, 0, SEEK_END);
