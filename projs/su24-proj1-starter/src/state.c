@@ -51,7 +51,6 @@ game_state_t *create_default_state() {
     game_state->board[i][num_cols] = '\0';
   }
   game_state->num_rows = num_rows;
-  // game_state->num_cols = num_cols;
   game_state->num_snakes = 1;
   return game_state;
 }
@@ -70,9 +69,10 @@ void free_state(game_state_t *state) {
 /* Task 3 */
 void print_board(game_state_t *state, FILE *fp) {
   for (int i = 0; i < state->num_rows; i ++) {
-    for (int j = 0; state->board[i][j]; j ++) {
-      fprintf(fp, "%c", state->board[i][j]);
-    }
+    // for (int j = 0; state->board[i][j]; j ++) {
+    //   fprintf(fp, "%c", state->board[i][j]);
+    // }
+    fprintf(fp, "%s", state->board[i]);
     fprintf(fp, "\n");
   }
   return;
@@ -310,7 +310,6 @@ game_state_t *load_board(FILE *fp) {
   while (fgets(buffer, LINE_SIZE, fp) != NULL) {
     long unsigned int col = strlen(buffer);
     game_state->board[row] = (char*)malloc(sizeof(char) * (col));
-    // strcpy(game_state->board[row], buffer);
     for (int i = 0; i < col; i ++) 
       game_state->board[row][i] = buffer[i];
     if (col - 1 >= 0) 
@@ -318,7 +317,7 @@ game_state_t *load_board(FILE *fp) {
     row ++;
   }
   game_state->num_rows = row;
-  game_state->board = (char**) realloc(game_state->board, (row - 1) * sizeof(char*));
+  game_state->board = (char**) realloc(game_state->board, row * sizeof(char*));
   return game_state;
 }
 
